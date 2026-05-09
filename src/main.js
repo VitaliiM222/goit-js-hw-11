@@ -3,6 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { getImagesByQuery } from './js/pixabay-api';
+
 import {
   createGallery,
   clearGallery,
@@ -20,7 +21,7 @@ function handleSubmit(event) {
   const query = event.target.elements['search-text'].value.trim();
 
   if (!query) {
-    iziToast.error({
+    iziToast.warning({
       message: 'Please fill in the field!',
       position: 'topRight',
     });
@@ -32,8 +33,8 @@ function handleSubmit(event) {
   showLoader();
 
   getImagesByQuery(query)
-    .then(response => {
-      const images = response.data.hits;
+    .then(data => {
+      const images = data.hits;
 
       if (images.length === 0) {
         iziToast.error({
